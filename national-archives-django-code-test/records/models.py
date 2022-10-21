@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class Record(models.Model):
+    guid = models.UUIDField(unique=True)
+    data = models.JSONField()
