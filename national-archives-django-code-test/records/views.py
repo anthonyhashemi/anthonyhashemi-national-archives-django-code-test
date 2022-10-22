@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from records.models import Record
 
 
-def get_record(request, guid):
+def get_record(request, id):
     try:
-        record = Record.objects.get(guid=guid)
+        record = Record.objects.get(id=id)
     except (Record.DoesNotExist, ValidationError):
         return HttpResponse("no record found", content_type="text/plain")
     data = record.data

@@ -20,5 +20,5 @@ from records.views import get_record
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("record/<str:guid>/", get_record, name="record-detail"),
+    path("record/<str:id>/", get_record, name="record-detail"),
 ]

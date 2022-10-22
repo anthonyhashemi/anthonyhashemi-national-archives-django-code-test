@@ -2,5 +2,5 @@ from django.db import models
 
 
 class Record(models.Model):
-    guid = models.UUIDField(unique=True)
+    id = models.CharField(max_length=36, primary_key=True)
     data = models.JSONField()

@@ -8,24 +8,24 @@ class Command(BaseCommand):
     help = "Imports record data from the tna API"
 
     def add_arguments(self, parser):
-        parser.add_argument("guid", type=str)
+        parser.add_argument("id", type=str)
 
     def handle(self, *args, **kwargs):
-        guid = kwargs["guid"]
-        if Record.objects.filter(guid=guid).exists():
+        id = kwargs["id"]
+        if Record.objects.filter(id=id).exists():
             self.stdout.write(
                 self.style.WARNING(
-                    'Record for guid "%s" alredy exists in the database.' % guid
+                    'Record for id "%s" alredy exists in the database.' % id
                 )
             )
         else:
             response = requests.get(
-                f"http://discovery.nationalarchives.gov.uk/API/records/v1/details/{guid}"
+                f"http://discovery.nationalarchives.gov.uk/API/records/v1/details/{id}"
             )
             data = response.json()
-            Record.objects.create(guid=guid, data=data)
+            Record.objects.create(id=id, data=data)
             self.stdout.write(
                 self.style.SUCCESS(
-                    'Record for guid "%s" created in the database.' % guid
+                    'Record for id "%s" created in the database.' % id
                 )
             )

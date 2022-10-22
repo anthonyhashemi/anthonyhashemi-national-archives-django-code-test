@@ -1,6 +1,5 @@
 import json
 
-import pytest
 from django.test import TestCase
 from django.urls import reverse
 
@@ -15,13 +14,13 @@ class RecordTests(TestCase):
         And the returned record's `title` is not null
         Then the record's `title` should be displayed
         """
-        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
+        id = "my-id"
         with open("records/tests/record_data_with_title.json") as json_file:
             data = json.load(json_file)
-        record_with_text = Record.objects.create(guid=guid, data=data)
+        record_with_text = Record.objects.create(id=id, data=data)
         assert (
             self.client.get(
-                reverse("record-detail", kwargs={"guid": record_with_text.guid})
+                reverse("record-detail", kwargs={"id": record_with_text.id})
             ).content.decode()
             == record_with_text.data["title"]
         )
@@ -34,15 +33,15 @@ class RecordTests(TestCase):
         And the returned record's `scopeContent.description` is not null
         Then the record's `scopeContent.description` should be displayed
         """
-        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
+        id = "my-id"
         with open(
             "records/tests/record_data_with_scope_content_description.json"
         ) as json_file:
             data = json.load(json_file)
-        record_with_text = Record.objects.create(guid=guid, data=data)
+        record_with_text = Record.objects.create(id=id, data=data)
         assert (
             self.client.get(
-                reverse("record-detail", kwargs={"guid": record_with_text.guid})
+                reverse("record-detail", kwargs={"id": record_with_text.id})
             ).content.decode()
             == record_with_text.data["scopeContent"]["description"]
         )
@@ -56,13 +55,13 @@ class RecordTests(TestCase):
         And the returned record's `citable_reference` is not null
         Then the record's `citable_reference` should be displayed
         """
-        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
+        id = "my-id"
         with open("records/tests/record_data_with_citable_reference.json") as json_file:
             data = json.load(json_file)
-        record_with_text = Record.objects.create(guid=guid, data=data)
+        record_with_text = Record.objects.create(id=id, data=data)
         assert (
             self.client.get(
-                reverse("record-detail", kwargs={"guid": record_with_text.guid})
+                reverse("record-detail", kwargs={"id": record_with_text.id})
             ).content.decode()
             == record_with_text.data["citableReference"]
         )
@@ -76,43 +75,29 @@ class RecordTests(TestCase):
         And the returned record's `citable_reference` is null
         Then a message "not sufficient information" should be displayed
         """
-        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
+        id = "my-id"
         with open(
             "records/tests/record_data_with_no_sufficient_information.json"
         ) as json_file:
             data = json.load(json_file)
-        record_with_text = Record.objects.create(guid=guid, data=data)
+        record_with_text = Record.objects.create(id=id, data=data)
         assert (
             self.client.get(
-                reverse("record-detail", kwargs={"guid": record_with_text.guid})
+                reverse("record-detail", kwargs={"id": record_with_text.id})
             ).content.decode()
             == "not sufficient information"
         )
 
-    def test_invalid_guid_returns_no_record_found(self):
+    def test_invalid_id_returns_no_record_found(self):
         """
         Given an invalid record ID is specified
         When the client is run
         Then a message "no record found" should be displayed
         """
-        guid = "blah"
+        id = "my-id"
         assert (
             self.client.get(
-                reverse("record-detail", kwargs={"guid": guid})
-            ).content.decode()
-            == "no record found"
-        )
-
-    def test_guid_with_no_record_returns_no_record_found(self):
-        """
-        Given an invalid record ID is specified
-        When the client is run
-        Then a message "no record found" should be displayed
-        """
-        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
-        assert (
-            self.client.get(
-                reverse("record-detail", kwargs={"guid": guid})
+                reverse("record-detail", kwargs={"id": id})
             ).content.decode()
             == "no record found"
         )
