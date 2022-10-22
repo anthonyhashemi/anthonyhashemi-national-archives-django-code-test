@@ -5,6 +5,7 @@ from records.models import Record
 
 
 def get_record(request, guid):
+    message = "not sufficient information"
     try:
         record = Record.objects.get(guid=guid)
     except (Record.DoesNotExist, ValidationError):
