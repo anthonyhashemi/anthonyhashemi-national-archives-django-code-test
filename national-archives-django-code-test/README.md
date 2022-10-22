@@ -11,4 +11,4 @@
 - `poetry run python manage.py runserver`
 
 ## Running tests
-- `poetry run pytest tests/`
+- `poetry run pytest .`
