@@ -15,3 +15,6 @@
 
 ## Running tests
 - `poetry run pytest .`
+
+## Assumptions
+- IDs in the TNA's record database are strings of at most 36 characters in length - some of which are GUIDs but not necessarily so (initially had started with this assumption but corrected this after double checking some ids using the search functionality and the titanic example)
