@@ -18,4 +18,8 @@ def get_record(request, guid):
             scope_content_description = data["scopeContent"]["description"]
             if scope_content_description:
                 message = scope_content_description
+            else:
+                citable_reference = data["citableReference"]
+                if citable_reference:
+                    message = citable_reference
     return HttpResponse(message, content_type="text/plain")

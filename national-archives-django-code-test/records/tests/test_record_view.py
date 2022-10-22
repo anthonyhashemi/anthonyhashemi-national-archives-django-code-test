@@ -47,6 +47,26 @@ class RecordTests(TestCase):
             == record_with_text.data["scopeContent"]["description"]
         )
 
+    def test_record_with_citablereference(self):
+        """
+        Given a valid record ID is specified
+        When the client is run
+        And the returned record's `title` is null
+        And the returned record's `scopeContent.description` is null
+        And the returned record's `citable_reference` is not null
+        Then the record's `citable_reference` should be displayed
+        """
+        guid = "a147aa58-38c5-45fb-a340-4a348efa01e6"
+        with open("records/tests/record_data_with_citable_reference.json") as json_file:
+            data = json.load(json_file)
+        record_with_text = Record.objects.create(guid=guid, data=data)
+        assert (
+            self.client.get(
+                reverse("record-detail", kwargs={"guid": record_with_text.guid})
+            ).content.decode()
+            == record_with_text.data["citableReference"]
+        )
+
     def test_invalid_guid_returns_no_record_found(self):
         """
         Given an invalid record ID is specified
