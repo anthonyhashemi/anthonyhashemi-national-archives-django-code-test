@@ -52,8 +52,8 @@ class RecordTests(TestCase):
         When the client is run
         And the returned record's `title` is null
         And the returned record's `scopeContent.description` is null
-        And the returned record's `citable_reference` is not null
-        Then the record's `citable_reference` should be displayed
+        And the returned record's `citableReference` is not null
+        Then the record's `citableReference` should be displayed
         """
         id = "my-id"
         with open("records/tests/record_data_with_citable_reference.json") as json_file:
@@ -72,7 +72,7 @@ class RecordTests(TestCase):
         When the client is run
         And the returned record's `title` is null
         And the returned record's `scopeContent.description` is null
-        And the returned record's `citable_reference` is null
+        And the returned record's `citableReference` is null
         Then a message "not sufficient information" should be displayed
         """
         id = "my-id"

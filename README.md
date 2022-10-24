@@ -12,6 +12,13 @@
 
 ## Running the API
 - `poetry run python manage.py runserver`
+- Given a valid `id` that you have imported data for using the management command above, you should be able to make a GET request to `http://127.0.0.1:8000/record/<id>/` with this `id` and should see some data that represents this record.
+- The response will vary depending on whether the corresponding record in the database, using the following in order if available:
+    - `title`
+    - `scopeContent.description`
+    - `citableReference`
+- If these are all `null`, then the message "not sufficient information" will be displayed.
+- If you have yet to import the data for a given `id`, then the message "no record found" will be displayed.
 
 ## Running tests
 - `poetry run pytest .`
