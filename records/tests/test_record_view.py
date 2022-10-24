@@ -1,3 +1,5 @@
+"Tests for the `record-detail` view"
+
 import json
 
 from django.test import TestCase
